@@ -1,563 +1,340 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/aos.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/fancybox.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/splide.min.css">
-    <link rel="stylesheet" href="css/icons/bootstrap-icons.min.css">
+    <title>TONY'S STARKY SHOP</title>
+    <style>
+        /* --- GENEL AYARLAR --- */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0a12; /* Çok koyu mavi/siyah */
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        /* --- ARKAPLAN ANİMASYONU (DEVRE KARTLARI) --- */
+        .background-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(0deg, transparent 24%, rgba(30, 136, 229, 0.1) 25%, rgba(30, 136, 229, 0.1) 26%, transparent 27%, transparent 74%, rgba(30, 136, 229, 0.1) 75%, rgba(30, 136, 229, 0.1) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(30, 136, 229, 0.1) 25%, rgba(30, 136, 229, 0.1) 26%, transparent 27%, transparent 74%, rgba(30, 136, 229, 0.1) 75%, rgba(30, 136, 229, 0.1) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            animation: circuitRotate 60s linear infinite;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        @keyframes circuitRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* --- HEADER --- */
+        header {
+            background-color: rgba(13, 17, 23, 0.95);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #1e88e5;
+            box-shadow: 0 4px 15px rgba(30, 136, 229, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px #1e88e5, 0 0 20px #1e88e5;
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { text-shadow: 0 0 5px #1e88e5, 0 0 10px #1e88e5; }
+            to { text-shadow: 0 0 15px #1e88e5, 0 0 30px #1e88e5, 0 0 45px #1e88e5; }
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #a0a0a0;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #1e88e5;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+            text-shadow: 0 0 5px #1e88e5;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* --- HERO BÖLÜMÜ (ANA BÖLÜM) --- */
+        .hero {
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle, rgba(29, 37, 65, 0.8) 0%, rgba(10, 10, 18, 0.9) 70%);
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            margin-bottom: 10px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        .hero p {
+            font-size: 22px;
+            margin-bottom: 30px;
+            color: #b0b0b0;
+            max-width: 600px;
+        }
+
+        .arc-reactor {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: #111;
+            border: 10px solid #333;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 50px #1e88e5, inset 0 0 20px #1e88e5;
+            animation: reactorPulse 2s infinite alternate;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        @keyframes reactorPulse {
+            from { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 50px #1e88e5, inset 0 0 20px #1e88e5; }
+            to { transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 0 80px #42a5f5, inset 0 0 30px #42a5f5; }
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #1e88e5, #42a5f5);
+            color: #fff;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(30, 136, 229, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.6);
+            background: linear-gradient(45deg, #42a5f5, #64b5f6);
+        }
+
+        /* --- ÜRÜN BÖLÜMÜ --- */
+        .products-section {
+            padding: 80px 50px;
+            background-color: #0d1117;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 60px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .product-card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-color: #1e88e5;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background-color: #21262d;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #586069;
+            font-size: 50px;
+        }
+
+        .product-title {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .product-price {
+            font-size: 18px;
+            color: #1e88e5;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .buy-button {
+            background-color: transparent;
+            border: 2px solid #1e88e5;
+            color: #1e88e5;
+            padding: 10px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover .buy-button {
+            background-color: #1e88e5;
+            color: #fff;
+            box-shadow: 0 0 15px #1e88e5;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: #0a0a12;
+            border-top: 1px solid #21262d;
+            color: #586069;
+        }
+
+        /* --- MOBİL UYUMLULUK (RESPONSIVE) --- */
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            .nav-links { display: none; } /* Basitlik için menüyü gizledik */
+            .hero h1 { font-size: 40px; }
+            .hero p { font-size: 18px; }
+            .arc-reactor { width: 100px; height: 100px; }
+        }
+    </style>
 </head>
-
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" aria-label="Offcanvas navbar large">
-        <div class="container-fluid">
-            <img src="img/klassy-logo.png" alt="">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2"
-                aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="offcanvas offcanvas-end text-bg-light" tabindex="-1" id="offcanvasNavbar2"
-                aria-labelledby="offcanvasNavbar2Label">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbar2Label">
-                        Offcanvas
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-                        aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        <li class="nav-item">
-                            <a class="nav-link red-link" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link red-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link red-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link red-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link red-link dropdown-toggle" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Features
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider" />
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <form class="d-flex mt-3 mt-lg-0" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button class="btn btn-outline-success" type="submit">
-                            Search
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </nav>
 
-    <!-- 1 section -->
-    <div class="bg-image-intre">
-        <div class="container-xl ms-0 text-white">
-            <div class="row">
-                <div class="col-lg-3 bg-shadow py-5">
-                    <div class="ps-4 py-lg-5 my-lg-5">
-                        <div class="fst-italic pt-5 mt-5 h1">
-                            KlassyCafe
-                        </div>
+    <!-- Arkaplan Animasyonu -->
+    <div class="background-overlay"></div>
 
-                        <div class="pb-3 fw-semibold" style="letter-spacing: 3px; word-spacing: 3px;">
-                            THE BEST EXPERIENCE
-                        </div>
-
-                        <div class="pb-5 mb-5">
-                            <button class="btn bg-white border-0 rounded-0 text-danger py-2 px-4 btn-sm">
-                                Make A Reservation
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- 2 section -->
-    <div class="container-xl py-5">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="text-danger">
-                    -- ABOUT US
-                </div>
-                <div class="h2 fw-bold py-4">
-                    We Leave A Delicious <br>
-                    Memory For You
-                </div>
-                <div style="letter-spacing: 1px; word-spacing: 1px; line-height: 28px;">
-                    Klassy Cafe is one of the best <a href="#">restaurant HTML templates</a>
-                    with Bootstrap v4.5.2 CSS framework . You can download and feel free
-                    to ouse this website template loyout for your restaurant business. You are allowed to use this
-                    template for commerial purposes.
-                </div>
-                <div class="pt-3" style="letter-spacing: 1px; word-spacing: 1px; line-height: 28px;">
-                    You are Not allowed to redistribute the template ZIP file on any template
-                    download website. Please contact us for more information
-                </div>
-                <div class="row py-4">
-                    <div class="col-4">
-                        <img src="img/about-thumb-01.jpg" class="w-100" alt="">
-                    </div>
-                    <div class="col-4">
-                        <img src="img/about-thumb-02.jpg" class="w-100" alt="">
-                    </div>
-                    <div class="col-4">
-                        <img src="img/about-thumb-03.jpg" class="w-100" alt="">
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-6 position-relative pt-lg-0 pt-5">
-                <img src="img/about-video-bg.jpg" class="w-100" alt="">
-
-                <div class="position-absolute translate-middle top-50 start-50">
-                    <i class="bi-play-circle-fill display-3 text-danger"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 3 section -->
-    <div class="container-xl py-5 mt-5">
-        <div class="text-danger">
-            -- OUR MENNU
-        </div>
-
-        <div class="fw-bold h2">
-            Our selection of cakes <br> with quality taste
-        </div>
-
-        <div class="splide" role="group" aria-label="Splide Basic HTML Example">
-            <div class="splide__track">
-                <ul class="splide__list">
-                    <li class="splide__slide">
-                        <div class="position-relative">
-                            <a href="img/menu-item-01.jpg" data-fancybox="gallery" data-caption="Breakfast">
-                                <img src="img/menu-item-01.jpg" alt="" class="w-100 img-fluid border-end">
-                            </a>
-                        </div>
-
-                        <div class="bg-danger py-3 position-absolute fw-semibold top-0 text-white px-3">
-                            $14
-                        </div>
-
-                        <div class="bg-danger pt-3 text-white fw-semibold ps-3 position-absolute bottom-0 w-100">
-                            <div class="h4">
-                                Chocolate Cake
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="splide__slide">
-                        <div class="position-relative">
-                            <a href="img/menu-item-02.jpg" data-fancybox="gallery" data-caption="Breakfast">
-                                <img src="img/menu-item-02.jpg" alt="" class="w-100 img-fluid border-end">
-                            </a>
-                        </div>
-
-                        <div class="bg-danger py-3 position-absolute fw-semibold top-0 text-white px-3">
-                            $22
-                        </div>
-
-                        <div class="bg-danger pt-3 text-white fw-semibold ps-3 position-absolute bottom-0 w-100">
-                            <div class="h4">
-                                Klassy Panckace
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="splide__slide">
-                        <div class="position-relative">
-                            <a href="img/menu-item-03.jpg" data-fancybox="gallery" data-caption="Breakfast">
-                                <img src="img/menu-item-03.jpg" alt="" class="w-100 img-fluid border-end">
-                            </a>
-                        </div>
-
-                        <div class="bg-danger py-3 position-absolute fw-semibold top-0 text-white px-3">
-                            $7.25
-                        </div>
-
-                        <div class="bg-danger pt-3 text-white fw-semibold ps-3 position-absolute bottom-0 w-100">
-                            <div class="h4">
-                                Klassic Cake
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="splide__slide">
-                        <div class="position-relative">
-                            <a href="img/menu-item-04.jpg" data-fancybox="gallery" data-caption="Breakfast">
-                                <img src="img/menu-item-04.jpg" alt="" class="w-100 img-fluid border-end">
-                            </a>
-                        </div>
-
-                        <div class="bg-danger py-3 position-absolute fw-semibold top-0 text-white px-3">
-                            $22
-                        </div>
-
-                        <div class="bg-danger pt-3 text-white fw-semibold ps-3 position-absolute bottom-0 w-100">
-                            <div class="h4">
-                                Klassy Panckace
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="splide__slide">
-                        <div class="position-relative">
-                            <a href="img/menu-item-05.jpg" data-fancybox="gallery" data-caption="Breakfast">
-                                <img src="img/menu-item-05.jpg" alt="" class="w-100 img-fluid border-end">
-                            </a>
-                        </div>
-
-                        <div class="bg-danger py-3 position-absolute fw-semibold top-0 text-white px-3">
-                            $22
-                        </div>
-
-                        <div class="bg-danger pt-3 ps-3 position-absolute bottom-0 w-100">
-                            <div class="h4 text-white fw-semibold">
-                                Klassy Cup Cake
-                            </div>
-
-                            <div class="text-white py-3" style="letter-spacing: 1px; word-spacing: 1px;">
-                                Lorem ipsum dolor sit amet, consectur adipiscing edit, sedii do euismod teme
-                            </div>
-
-                            <div class="pb-3">
-                                <a class="text-decoration-none text-white fw-semibold" href="#">Make Reservation</a>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!-- 4 section -->
-    <div class="container-xl text-center py-5">
-        <div class="text-danger">
-            OUR CHEFS
-        </div>
-
-        <div class="h2 fw-bold pt-3 pb-5">
-            We offer the best <br> ingredients for you
-        </div>
-
-        <div class="row row-cols-3">
-            <div class="col-lg-4 ">
-                <div class="p-1 border-1 border-black" style="box-shadow: 0 0 4px black;">
-                    <div>
-                        <img src="img/chefs-01.jpg" class="w-100 p-1" alt="">
-                    </div>
-                    <div class="h5 fw-bold py-3">Randy Walkeer</div>
-                    <div class="pb-5">Pastry Chef</div>
-                </div>
-            </div>
-            <div class="col-lg-4 ">
-                <div class="p-1 border-1 border-black" style="box-shadow: 0 0 4px black;">
-                    <div>
-                        <img src="img/chefs-02.jpg" class="w-100 p-1" alt="">
-                    </div>
-                    <div class="h5 fw-bold py-3">David Martin</div>
-                    <div class="pb-5">Cookie Chef</div>
-                </div>
-            </div>
-            <div class="col-lg-4 ">
-                <div class="p-1 border-1 border-black" style="box-shadow: 0 0 4px black;">
-                    <div>
-                        <img src="img/chefs-03.jpg" class="w-100 p-1" alt="">
-                    </div>
-                    <div class="h5 fw-bold py-3">Peter Perkson</div>
-                    <div class="pb-5">Pancake Chef</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 5 section -->
-    <div class="bg-dark text-white py-5 position-relative"
-        style="background-image: url('img/reservation-bg.jpg'); background-size: cover; background-position: center;">
-        <div class="container-xl py-5 position-relative" style="z-index: 1;">
-            <div class="row align-items-center">
-                <div class="col-lg-6 mb-5 mb-lg-0 pe-lg-5">
-                    <div class="text-danger fw-bold" style="letter-spacing: 2px;">
-                        -- CONTACT US
-                    </div>
-                    <div class="h2 fw-bold pt-3 pb-4">
-                        Here You Can Make A Reservation <br> Or Just walkin to our cafe
-                    </div>
-                    <div class="pb-5" style="color: #dcdcdc; line-height: 28px;">
-                        Donec pretium est orci, non vulputate arcu hendrerit a. Pellentesque dictum sagittis est, non
-                        porttitor risus vulputate ac.
-                    </div>
-
-                    <div class="row g-4 text-dark text-center">
-                        <div class="col-sm-6">
-                            <div class="bg-white p-4 py-5 rounded h-100 d-flex flex-column align-items-center">
-                                <div class="bg-danger text-white rounded-circle d-flex justify-content-center align-items-center mb-3"
-                                    style="width: 60px; height: 60px;">
-                                    <i class="bi-telephone-fill fs-4"></i>
-                                </div>
-                                <div class="h5 fw-bold">Phone Numbers</div>
-                                <div class="text-muted mt-2">
-                                    080-090-0990 <br> 080-090-0880
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="bg-white p-4 py-5 rounded h-100 d-flex flex-column align-items-center">
-                                <div class="bg-danger text-white rounded-circle d-flex justify-content-center align-items-center mb-3"
-                                    style="width: 60px; height: 60px;">
-                                    <i class="bi-envelope-fill fs-4"></i>
-                                </div>
-                                <div class="h5 fw-bold">Emails</div>
-                                <div class="text-muted mt-2">
-                                    hello@company.com <br> info@company.com
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="bg-white text-dark p-5 rounded">
-                        <div class="text-center h3 fw-bold pb-4">Table Reservation</div>
-                        <form>
-                            <div class="row g-4">
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control bg-light border-0 py-2"
-                                        placeholder="Your Name*" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="email" class="form-control bg-light border-0 py-2"
-                                        placeholder="Your Email Address" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control bg-light border-0 py-2"
-                                        placeholder="Phone Number*" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="number" class="form-control bg-light border-0 py-2"
-                                        placeholder="Number of Guests" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="date" class="form-control bg-light border-0 py-2">
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="time" class="form-control bg-light border-0 py-2">
-                                </div>
-                                <div class="col-12">
-                                    <textarea class="form-control bg-light border-0 py-2" rows="4"
-                                        placeholder="Message"></textarea>
-                                </div>
-                                <div class="col-12 mt-4">
-                                    <button type="submit" class="btn btn-danger w-100 py-3 rounded-0 fw-bold">Make A
-                                        Reservation</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 6 section -->
-    <div class="container-xl py-5 mt-5">
-        <div class="text-center text-danger fw-bold" style="letter-spacing: 2px;">
-            -- KLASSY WEEK
-        </div>
-        <div class="text-center h2 fw-bold pt-3 pb-5">
-            This Week's Special <br> Meal Offers
-        </div>
-
-        <ul class="nav nav-tabs justify-content-center border-0 mb-5 pb-3" id="menuTabs" role="tablist">
-            <li class="nav-item mx-3" role="presentation">
-                <button class="nav-link active border-0 text-dark d-flex flex-column align-items-center bg-transparent"
-                    id="breakfast-tab" data-bs-toggle="tab" data-bs-target="#breakfast" type="button" role="tab"
-                    aria-controls="breakfast" aria-selected="true">
-                    <i class="bi-sunrise fs-3 text-danger mb-2"></i>
-                    <span class="fw-semibold">Breakfast</span>
-                </button>
-            </li>
-            <li class="nav-item mx-3" role="presentation">
-                <button class="nav-link border-0 text-dark d-flex flex-column align-items-center bg-transparent"
-                    id="lunch-tab" data-bs-toggle="tab" data-bs-target="#lunch" type="button" role="tab"
-                    aria-controls="lunch" aria-selected="false">
-                    <i class="bi-egg-fried fs-3 text-danger mb-2"></i>
-                    <span class="fw-semibold">Lunch</span>
-                </button>
-            </li>
-            <li class="nav-item mx-3" role="presentation">
-                <button class="nav-link border-0 text-dark d-flex flex-column align-items-center bg-transparent"
-                    id="dinner-tab" data-bs-toggle="tab" data-bs-target="#dinner" type="button" role="tab"
-                    aria-controls="dinner" aria-selected="false">
-                    <i class="bi-cup-straw fs-3 text-danger mb-2"></i>
-                    <span class="fw-semibold">Dinner</span>
-                </button>
-            </li>
+    <!-- Header -->
+    <header>
+        <div class="logo">Tony's Starky Shop</div>
+        <ul class="nav-links">
+            <li><a href="#home">Ana Sayfa</a></li>
+            <li><a href="#tech">Teknoloji</a></li>
+            <li><a href="#suits">Zırhlar</a></li>
+            <li><a href="#contact">İletişim</a></li>
         </ul>
+    </header>
 
-        <div class="tab-content" id="menuTabsContent">
+    <!-- Hero Bölümü -->
+    <section class="hero" id="home">
+        <div class="arc-reactor"></div>
+        <h1>Geleceğe Hoş Geldiniz</h1>
+        <p>Stark Industries teknolojisi parmaklarınızın ucunda. En son inovasyonları keşfedin.</p>
+        <button class="cta-button">Teknolojiyi Keşfet</button>
+    </section>
 
-            <div class="tab-pane fade show active" id="breakfast" role="tabpanel" aria-labelledby="breakfast-tab">
-                <div class="row g-5">
-                    <div class="col-lg-6">
-                        <div class="d-flex align-items-center mb-4">
-                            <img src="img/tab-item-01.png" alt="" class="rounded bg-light"
-                                style="width: 80px; height: 80px; object-fit: cover;">
-                            <div class="ms-4 flex-grow-1">
-                                <div class="h5 fw-bold mb-1">Fresh Chicken Salad</div>
-                                <div class="text-muted small">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                    sed do</div>
-                            </div>
-                            <div class="bg-danger text-white px-3 py-2 ms-3 fw-bold rounded-1">$10.50</div>
-                        </div>
+    <!-- Ürünler Bölümü -->
+    <section class="products-section" id="tech">
+        <h2 class="section-title">Öne Çıkan Ürünler</h2>
+        <div class="product-grid">
 
-                        <div class="d-flex align-items-center mb-4">
-                            <img src="img/tab-item-02.png" alt="" class="rounded bg-light"
-                                style="width: 80px; height: 80px; object-fit: cover;">
-                            <div class="ms-4 flex-grow-1">
-                                <div class="h5 fw-bold mb-1">Orange Juice</div>
-                                <div class="text-muted small">Lorem ipsum dolor sit amet, consectetur adipiscing eliКt,
-                                    sed do</div>
-                            </div>
-                            <div class="bg-danger text-white px-3 py-2 ms-3 fw-bold rounded-1">$8.50</div>
-                        </div>
-
-                        <div class="d-flex align-items-center">
-                            <img src="img/tab-item-03.png" alt="" class="rounded bg-light"
-                                style="width: 80px; height: 80px; object-fit: cover;">
-                            <div class="ms-4 flex-grow-1">
-                                <div class="h5 fw-bold mb-1">Fruit Salad</div>
-                                <div class="text-muted small">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                    sed do</div>
-                            </div>
-                            <div class="bg-danger text-white px-3 py-2 ms-3 fw-bold rounded-1">$9.90</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="d-flex align-items-center mb-4">
-                            <img src="img/tab-item-04.png" alt="" class="rounded bg-light"
-                                style="width: 80px; height: 80px; object-fit: cover;">
-                            <div class="ms-4 flex-grow-1">
-                                <div class="h5 fw-bold mb-1">Eggs Omelette</div>
-                                <div class="text-muted small">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                    sed do</div>
-                            </div>
-                            <div class="bg-danger text-white px-3 py-2 ms-3 fw-bold rounded-1">$6.50</div>
-                        </div>
-
-                        <div class="d-flex align-items-center mb-4">
-                            <img src="img/tab-item-05.png" alt="" class="rounded bg-light"
-                                style="width: 80px; height: 80px; object-fit: cover;">
-                            <div class="ms-4 flex-grow-1">
-                                <div class="h5 fw-bold mb-1">Dollma Pire</div>
-                                <div class="text-muted small">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                    sed do</div>
-                            </div>
-                            <div class="bg-danger text-white px-3 py-2 ms-3 fw-bold rounded-1">$5.00</div>
-                        </div>
-
-                        <div class="d-flex align-items-center">
-                            <img src="img/tab-item-06.png" alt="" class="rounded bg-light"
-                                style="width: 80px; height: 80px; object-fit: cover;">
-                            <div class="ms-4 flex-grow-1">
-                                <div class="h5 fw-bold mb-1">Omelette & Cheese</div>
-                                <div class="text-muted small">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                    sed do</div>
-                            </div>
-                            <div class="bg-danger text-white px-3 py-2 ms-3 fw-bold rounded-1">$4.10</div>
-                        </div>
-                    </div>
-                </div>
+            <!-- Ürün 1 -->
+            <div class="product-card">
+                <div class="product-image">💡</div>
+                <h3 class="product-title">Mark V Portatif Zırh</h3>
+                <p class="product-price">$1,500,000</p>
+                <button class="buy-button">Detaylar</button>
             </div>
 
-
-            <div class="tab-pane fade" id="lunch" role="tabpanel" aria-labelledby="lunch-tab">
-                <div class="text-center text-muted">Lunch items will be here...</div>
+            <!-- Ürün 2 -->
+            <div class="product-card">
+                <div class="product-image">🔋</div>
+                <h3 class="product-title">Gelişmiş Ark Reaktörü (Masaüstü)</h3>
+                <p class="product-price">$500,000</p>
+                <button class="buy-button">Detaylar</button>
             </div>
 
-
-            <div class="tab-pane fade" id="dinner" role="tabpanel" aria-labelledby="dinner-tab">
-                <div class="text-center text-muted">Dinner items will be here...</div>
+            <!-- Ürün 3 -->
+            <div class="product-card">
+                <div class="product-image">🤖</div>
+                <h3 class="product-title">DUM-E Asistan Robot</h3>
+                <p class="product-price">$250,000</p>
+                <button class="buy-button">Detaylar</button>
             </div>
+
+            <!-- Ürün 4 -->
+            <div class="product-card">
+                <div class="product-image">🕶️</div>
+                <h3 class="product-title">E.D.I.T.H. Gözlük Entegrasyonu</h3>
+                <p class="product-price">$750,000</p>
+                <button class="buy-button">Detaylar</button>
+            </div>
+
         </div>
-    </div>
-    <div class="bg-danger">
-        <div class="container-xl  py-5">
-            <div class="row justify-content-between">
-                <div class="col-4">
-                    <i class="bi-facebook h5  text-white rounded-circle px-2"></i>
-                    <i class="bi-twitter h5   text-white rounded-circle px-2"></i>
-                    <i class="bi-linkedin h5  text-white rounded-circle px-2"></i>
-                    <i class="bi-instagram h5 text-white rounded-circle px-2"></i>
-                </div>
-                <div class="col-4 text-center">
-                    <img src="img/klassy-logo.png" class="bg-white px-5 py-1" alt="">
-                </div>
-                <div class="col-4 text-end">
-                    <a href="#" class="text-white h6 text-decoration-none">c Copyright Klassy Cafe Co.</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    </section>
 
-    <script src="js/aos.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/fancybox.umd.js"></script>
-    <script src="js/splide.min.js"></script>
-    <script src="js/typed.js"></script>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2077 Stark Industries. Tüm hakları saklıdır. Unauthorized duplication is a violation of applicable laws.</p>
+    </footer>
 
-    <script>
-        Fancybox.bind("[data-fancybox]", {
-            // Your custom options
-        });
-        document.addEventListener('DOMContentLoaded', function () {
-            var splide = new Splide('.splide', {
-                type: 'loop',
-                autoplay: true,
-                interval: 5e3,
-                perPage: 4,
-                perMove: 2,
-                gap: '1rem',
-                pagination: 0,
-                breakpoints: {
-                    767: {
-                        perPage: 1,
-                        perMove: 1,
-                    },
-                },
-            });
-            splide.mount();
-        });
-    </script>
 </body>
-
 </html>
