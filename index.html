@@ -1,340 +1,388 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TONY'S STARKY SHOP</title>
-    <style>
-        /* --- GENEL AYARLAR --- */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0a0a12; /* Çok koyu mavi/siyah */
-            color: #e0e0e0;
-            overflow-x: hidden;
-        }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5" />
+<meta name="theme-color" content="#05060a" />
+<title data-i18n="pageTitle">Стефано — @tonystarky</title>
+<meta name="description" content="Стефано (@TONYSTARKY) — Telegram-создатель из Туркменистана. Серверы, VPN и бот, который выплачивает туркменские манаты." />
 
-        /* --- ARKAPLAN ANİMASYONU (DEVRE KARTLARI) --- */
-        .background-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(0deg, transparent 24%, rgba(30, 136, 229, 0.1) 25%, rgba(30, 136, 229, 0.1) 26%, transparent 27%, transparent 74%, rgba(30, 136, 229, 0.1) 75%, rgba(30, 136, 229, 0.1) 76%, transparent 77%, transparent),
-                linear-gradient(90deg, transparent 24%, rgba(30, 136, 229, 0.1) 25%, rgba(30, 136, 229, 0.1) 26%, transparent 27%, transparent 74%, rgba(30, 136, 229, 0.1) 75%, rgba(30, 136, 229, 0.1) 76%, transparent 77%, transparent);
-            background-size: 50px 50px;
-            animation: circuitRotate 60s linear infinite;
-            z-index: -1;
-            opacity: 0.6;
-        }
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Стефано — @aladasyz" />
+<meta property="og:description" content="Telegram-создатель. SERVERS TM. VPN TM. Rick Stars bot. + много других проектов." />
+<meta property="og:image" content="assets/stefano.jpg" />
 
-        @keyframes circuitRotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" as="image" href="assets/stefano.jpg" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet" />
 
-        /* --- HEADER --- */
-        header {
-            background-color: rgba(13, 17, 23, 0.95);
-            padding: 15px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #1e88e5;
-            box-shadow: 0 4px 15px rgba(30, 136, 229, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+<link rel="stylesheet" href="styles.css" />
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%237c3aed'/><stop offset='1' stop-color='%2306b6d4'/></linearGradient></defs><rect width='64' height='64' rx='14' fill='%23050610'/><text x='50%25' y='55%25' text-anchor='middle' dominant-baseline='middle' font-family='Space Grotesk' font-size='30' font-weight='700' fill='url(%23g)'>S</text></svg>" />
 
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px #1e88e5, 0 0 20px #1e88e5;
-            animation: pulse 1.5s infinite alternate;
-        }
-
-        @keyframes pulse {
-            from { text-shadow: 0 0 5px #1e88e5, 0 0 10px #1e88e5; }
-            to { text-shadow: 0 0 15px #1e88e5, 0 0 30px #1e88e5, 0 0 45px #1e88e5; }
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #a0a0a0;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: #1e88e5;
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #fff;
-            text-shadow: 0 0 5px #1e88e5;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* --- HERO BÖLÜMÜ (ANA BÖLÜM) --- */
-        .hero {
-            height: 70vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: radial-gradient(circle, rgba(29, 37, 65, 0.8) 0%, rgba(10, 10, 18, 0.9) 70%);
-            position: relative;
-        }
-
-        .hero h1 {
-            font-size: 60px;
-            margin-bottom: 10px;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-        }
-
-        .hero p {
-            font-size: 22px;
-            margin-bottom: 30px;
-            color: #b0b0b0;
-            max-width: 600px;
-        }
-
-        .arc-reactor {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: #111;
-            border: 10px solid #333;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 50px #1e88e5, inset 0 0 20px #1e88e5;
-            animation: reactorPulse 2s infinite alternate;
-            z-index: -1;
-            opacity: 0.3;
-        }
-
-        @keyframes reactorPulse {
-            from { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 50px #1e88e5, inset 0 0 20px #1e88e5; }
-            to { transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 0 80px #42a5f5, inset 0 0 30px #42a5f5; }
-        }
-
-        .cta-button {
-            background: linear-gradient(45deg, #1e88e5, #42a5f5);
-            color: #fff;
-            padding: 15px 40px;
-            font-size: 18px;
-            font-weight: bold;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(30, 136, 229, 0.4);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.6);
-            background: linear-gradient(45deg, #42a5f5, #64b5f6);
-        }
-
-        /* --- ÜRÜN BÖLÜMÜ --- */
-        .products-section {
-            padding: 80px 50px;
-            background-color: #0d1117;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 40px;
-            margin-bottom: 60px;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-        }
-
-        .product-card {
-            background-color: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border-color: #1e88e5;
-        }
-
-        .product-image {
-            width: 100%;
-            height: 200px;
-            background-color: #21262d;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #586069;
-            font-size: 50px;
-        }
-
-        .product-title {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #fff;
-        }
-
-        .product-price {
-            font-size: 18px;
-            color: #1e88e5;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .buy-button {
-            background-color: transparent;
-            border: 2px solid #1e88e5;
-            color: #1e88e5;
-            padding: 10px 25px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .product-card:hover .buy-button {
-            background-color: #1e88e5;
-            color: #fff;
-            box-shadow: 0 0 15px #1e88e5;
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            text-align: center;
-            padding: 30px;
-            background-color: #0a0a12;
-            border-top: 1px solid #21262d;
-            color: #586069;
-        }
-
-        /* --- MOBİL UYUMLULUK (RESPONSIVE) --- */
-        @media (max-width: 768px) {
-            header { padding: 15px 20px; }
-            .nav-links { display: none; } /* Basitlik için menüyü gizledik */
-            .hero h1 { font-size: 40px; }
-            .hero p { font-size: 18px; }
-            .arc-reactor { width: 100px; height: 100px; }
-        }
-    </style>
+<script>
+  // Pre-paint: read stored language ASAP to minimize flash.
+  try {
+    var __l = localStorage.getItem('lang');
+    if (__l && /^(ru|tm|en)$/.test(__l)) {
+      document.documentElement.lang = __l;
+      document.documentElement.dataset.lang = __l;
+    } else {
+      document.documentElement.dataset.lang = 'ru';
+    }
+  } catch (e) {}
+</script>
 </head>
 <body>
 
-    <!-- Arkaplan Animasyonu -->
-    <div class="background-overlay"></div>
+<!-- Custom cursor (desktop only) -->
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
 
-    <!-- Header -->
-    <header>
-        <div class="logo">Tony's Starky Shop</div>
-        <ul class="nav-links">
-            <li><a href="#home">Ana Sayfa</a></li>
-            <li><a href="#tech">Teknoloji</a></li>
-            <li><a href="#suits">Zırhlar</a></li>
-            <li><a href="#contact">İletişim</a></li>
-        </ul>
-    </header>
+<!-- Background layers -->
+<div class="bg-layer bg-grid" aria-hidden="true"></div>
+<div class="bg-layer bg-orbs" aria-hidden="true">
+  <span class="orb orb-1"></span>
+  <span class="orb orb-2"></span>
+</div>
+<canvas id="stars" class="bg-layer" aria-hidden="true"></canvas>
+<div class="bg-layer bg-vignette" aria-hidden="true"></div>
+<div class="bg-layer bg-noise" aria-hidden="true"></div>
 
-    <!-- Hero Bölümü -->
-    <section class="hero" id="home">
-        <div class="arc-reactor"></div>
-        <h1>Geleceğe Hoş Geldiniz</h1>
-        <p>Stark Industries teknolojisi parmaklarınızın ucunda. En son inovasyonları keşfedin.</p>
-        <button class="cta-button">Teknolojiyi Keşfet</button>
-    </section>
+<!-- Click to enter splash -->
+<section class="splash" id="splash">
+  <div class="splash-inner">
+    <div class="splash-glow"></div>
+    <div class="splash-tag" data-i18n="splash.tag">[ добро пожаловать ]</div>
+    <h1 class="splash-title" data-i18n="splash.title">нажмите<br/><span class="grad">чтобы войти</span></h1>
+    <div class="splash-sub" data-i18n="splash.sub">@aladasyz · туркменистан 🇹🇲</div>
+    <div class="splash-foot">
+      <span class="dot pulse"></span>
+      <span class="mono" data-i18n="splash.foot">система / в сети</span>
+    </div>
+  </div>
+</section>
 
-    <!-- Ürünler Bölümü -->
-    <section class="products-section" id="tech">
-        <h2 class="section-title">Öne Çıkan Ürünler</h2>
-        <div class="product-grid">
+<!-- Top nav -->
+<header class="nav">
+  <a class="brand" href="#top">
+    <span class="brand-mark">S</span>
+    <span class="brand-name">/ @aladasyz</span>
+  </a>
+  <nav class="nav-links">
+    <a href="#about" data-i18n="nav.about">обо мне</a>
+    <a href="#channels" data-i18n="nav.channels">каналы</a>
+    <a href="#bot" data-i18n="nav.bot">бот</a>
+    <a href="#connect" data-i18n="nav.connect">связаться</a>
+  </nav>
+  <div class="nav-meta mono">
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button type="button" class="lang-btn active" data-lang="ru">RU</button>
+      <button type="button" class="lang-btn" data-lang="tm">TM</button>
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
+    </div>
+    <span class="nav-clock">
+      <span class="dot pulse"></span><span id="clock">--:--:--</span>
+    </span>
+  </div>
+</header>
 
-            <!-- Ürün 1 -->
-            <div class="product-card">
-                <div class="product-image">💡</div>
-                <h3 class="product-title">Mark V Portatif Zırh</h3>
-                <p class="product-price">$1,500,000</p>
-                <button class="buy-button">Detaylar</button>
-            </div>
+<main id="top">
 
-            <!-- Ürün 2 -->
-            <div class="product-card">
-                <div class="product-image">🔋</div>
-                <h3 class="product-title">Gelişmiş Ark Reaktörü (Masaüstü)</h3>
-                <p class="product-price">$500,000</p>
-                <button class="buy-button">Detaylar</button>
-            </div>
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-grid">
+      <div class="hero-left" data-parallax="0.04">
+        <div class="kicker mono" data-i18n="hero.kicker">// стефано · @aladasyz · 🇹🇲</div>
+        <h1 class="hero-name">
+          <span class="glitch" data-text="Stefano">Stefano</span>
+        </h1>
+        <h2 class="hero-role" id="rotator">
+          <span>создатель telegram</span>
+        </h2>
+        <p class="hero-quote" data-i18n="hero.quote">
+          <span class="quote-mark">«</span>За каждым молчанием есть причина.<span class="quote-mark">»</span>
+        </p>
+        <p class="hero-bio" data-i18n="hero.bio">
+          Создаю крупнейшее Telegram-сообщество Туркменистана с <b>2018</b>
+          года — ежедневные коды, бесплатные серверы, надёжный VPN-доступ и
+          реферальный бот, который выплачивает реальные
+          <span class="grad">туркменские манаты</span>. Это главное — а в фоне
+          ещё много проектов.
+        </p>
 
-            <!-- Ürün 3 -->
-            <div class="product-card">
-                <div class="product-image">🤖</div>
-                <h3 class="product-title">DUM-E Asistan Robot</h3>
-                <p class="product-price">$250,000</p>
-                <button class="buy-button">Detaylar</button>
-            </div>
-
-            <!-- Ürün 4 -->
-            <div class="product-card">
-                <div class="product-image">🕶️</div>
-                <h3 class="product-title">E.D.I.T.H. Gözlük Entegrasyonu</h3>
-                <p class="product-price">$750,000</p>
-                <button class="buy-button">Detaylar</button>
-            </div>
-
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#channels">
+            <span data-i18n="hero.cta1">к каналам</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="#bot">
+            <span data-i18n="hero.cta2">заработать манаты</span>
+          </a>
         </div>
-    </section>
+      </div>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2077 Stark Industries. Tüm hakları saklıdır. Unauthorized duplication is a violation of applicable laws.</p>
-    </footer>
+      <div class="hero-right" data-parallax="0.07">
+        <div class="avatar-wrap">
+          <div class="avatar-rings" aria-hidden="true">
+            <span class="ring r1"></span>
+            <span class="ring r2"></span>
+          </div>
+          <div class="avatar">
+            <img class="avatar-img" src="assets/stefano.jpg" alt="Stefano" />
+          </div>
+          <div class="badge online mono"><span class="dot pulse"></span> online · TM</div>
+        </div>
+      </div>
+    </div>
 
+    <!-- marquee -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>STEFANO</span><i>✦</i>
+        <span>SERVERS TM</span><i>✦</i>
+        <span>VPN TM</span><i>✦</i>
+        <span>RICK STARS</span><i>✦</i>
+        <span data-i18n="marq.since">С 2018</span><i>✦</i>
+        <span data-i18n="marq.tm">ТУРКМЕНИСТАН</span><i>✦</i>
+        <span data-i18n="marq.codes">БЕСПЛАТНЫЕ КОДЫ</span><i>✦</i>
+        <span data-i18n="marq.manat">МАНАТЫ</span><i>✦</i>
+        <span>STEFANO</span><i>✦</i>
+        <span>SERVERS TM</span><i>✦</i>
+        <span>VPN TM</span><i>✦</i>
+        <span>RICK STARS</span><i>✦</i>
+        <span data-i18n="marq.since">С 2018</span><i>✦</i>
+        <span data-i18n="marq.tm">ТУРКМЕНИСТАН</span><i>✦</i>
+        <span data-i18n="marq.codes">БЕСПЛАТНЫЕ КОДЫ</span><i>✦</i>
+        <span data-i18n="marq.manat">МАНАТЫ</span><i>✦</i>
+      </div>
+    </div>
+
+    <a class="scroll-hint" href="#about" aria-label="Scroll">
+      <span class="mono">scroll</span>
+      <span class="line"></span>
+    </a>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats reveal" id="stats">
+    <div class="stat">
+      <div class="stat-num" data-count="106907" data-suffix="+">0</div>
+      <div class="stat-label mono" data-i18n="stats.community">всего подписчиков</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" data-count="2">0</div>
+      <div class="stat-label mono" data-i18n="stats.channels">основных каналов</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" data-count="1">0</div>
+      <div class="stat-label mono" data-i18n="stats.bot">бот для заработка</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" data-count="2018" data-raw="true">0</div>
+      <div class="stat-label mono" data-i18n="stats.since">работаем с</div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section reveal" id="about">
+    <div class="section-head">
+      <span class="section-num mono">01</span>
+      <h3 class="section-title" data-i18n="section.about">обо <span class="grad">мне</span></h3>
+    </div>
+    <div class="about-grid">
+      <div class="about-card glass tilt">
+        <div class="about-card-tag mono" data-i18n="about.tag1">// кто</div>
+        <p data-i18n="about.body1">
+          Я — <b>Стефано</b>, в Telegram <b>@aladasyz</b>. Туркменский
+          создатель, веду одни из самых крупных каналов страны с <b>2018</b>
+          года: ежедневные дропы кодов, раздачи серверов и VPN-доступ для
+          пользователей по всему <b>Туркменистану 🇹🇲</b>.
+        </p>
+      </div>
+      <div class="about-card glass tilt">
+        <div class="about-card-tag mono" data-i18n="about.tag2">// что</div>
+        <p data-i18n="about.body2">
+          Два флагманских канала — <b>SERVERS TM</b> и <b>VPN TM</b> — и
+          реферальный бот <b>Rick Stars</b>, выплачивающий реальные
+          <span class="grad">туркменские манаты</span> всем, кто приглашает
+          друзей.
+        </p>
+      </div>
+      <div class="about-card glass tilt wide">
+        <div class="about-card-tag mono" data-i18n="about.tag3">// + ещё</div>
+        <p data-i18n="about.body3">
+          Здесь — главное. В фоне ещё куча небольших каналов, инструментов и
+          проектов, которые я постоянно запускаю. Если что-то выглядит как
+          Telegram-проект для TM — велик шанс, что я к нему причастен.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHANNELS -->
+  <section class="section reveal" id="channels">
+    <div class="section-head">
+      <span class="section-num mono">02</span>
+      <h3 class="section-title" data-i18n="section.channels">мои <span class="grad">каналы</span></h3>
+    </div>
+
+    <div class="channels">
+      <a class="channel glass tilt" href="https://t.me/SERVERSTM" target="_blank" rel="noopener">
+        <div class="channel-glow" style="--c1:#7c3aed"></div>
+        <div class="channel-top">
+          <div class="channel-pic">
+            <img src="assets/serverstm.jpg" alt="SERVERS TM" loading="lazy" />
+            <span class="channel-pic-ring"></span>
+          </div>
+          <div class="channel-meta">
+            <div class="channel-handle mono">@SERVERSTM</div>
+            <div class="channel-name">SERVERS TM 🇹🇲</div>
+          </div>
+          <div class="channel-arrow" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </div>
+        <p class="channel-desc" data-i18n="ch.servers.desc">
+          Канал #1 в Туркменистане. Ежедневно свежие коды, VIP-раздачи и
+          первый доступ к дропам — bizde önürti, soň başgalarda.
+        </p>
+        <div class="channel-foot">
+          <div class="chip"><span class="dot pulse"></span><span class="mono" data-i18n="ch.servers.subs">58 403 подп.</span></div>
+          <div class="chip"><span class="mono" data-i18n="ch.servers.tags">коды · раздачи · vip</span></div>
+        </div>
+      </a>
+
+      <a class="channel glass tilt" href="https://t.me/VPNTM" target="_blank" rel="noopener">
+        <div class="channel-glow" style="--c1:#22d3ee"></div>
+        <div class="channel-top">
+          <div class="channel-pic">
+            <img src="assets/vpntm.jpg" alt="VPN TM" loading="lazy" />
+            <span class="channel-pic-ring"></span>
+          </div>
+          <div class="channel-meta">
+            <div class="channel-handle mono">@Serverstkmo</div>
+            <div class="channel-name">VPN · TURKMENISTAN 2026</div>
+          </div>
+          <div class="channel-arrow" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </div>
+        </div>
+        <p class="channel-desc" data-i18n="ch.vpn.desc">
+          Надёжный VPN-доступ для Туркменистана. Оставайся на связи и
+          свободным — актуальные прайсы, быстрая поддержка, без лишних слов.
+        </p>
+        <div class="channel-foot">
+          <div class="chip"><span class="dot pulse"></span><span class="mono" data-i18n="ch.vpn.subs">48 504 подп.</span></div>
+          <div class="chip"><span class="mono" data-i18n="ch.vpn.tags">vpn · приватность · 2026</span></div>
+        </div>
+      </a>
+    </div>
+
+    <p class="more-projects mono" data-i18n="channels.more">
+      + есть ещё проекты · показаны только основные
+    </p>
+  </section>
+
+  <!-- BOT FEATURE -->
+  <section class="section reveal" id="bot">
+    <div class="section-head">
+      <span class="section-num mono">03</span>
+      <h3 class="section-title" data-i18n="section.earn">зарабатывай <span class="grad">манаты</span></h3>
+    </div>
+
+    <a class="bot glass tilt" href="https://t.me/tonystarky" target="_blank" rel="noopener">
+      <div class="bot-glow" aria-hidden="true"></div>
+      <div class="bot-left">
+        <div class="bot-pic">
+          <img src="assets/rickbot.jpg" alt="Rick Stars Bot" loading="lazy" />
+          <span class="bot-pic-ring"></span>
+        </div>
+      </div>
+      <div class="bot-mid">
+        <div class="bot-tag mono" data-i18n="bot.tag">// избранный проект</div>
+        <h4 class="bot-name">Rick Stars <span class="grad">Bot</span></h4>
+        <div class="bot-handle mono">@RickStars_Bot</div>
+        <p class="bot-desc" data-i18n="bot.desc">
+          Зарабатывай <b>реальные туркменские манаты</b>, просто приглашая
+          друзей. Чем больше людей приведёшь — тем больше выводишь. Создан для
+          пользователей в Туркменистане 🇹🇲.
+        </p>
+        <ul class="bot-list">
+          <li><span class="bullet"></span><span data-i18n="bot.feat1">Мгновенный учёт рефералов</span></li>
+          <li><span class="bullet"></span><span data-i18n="bot.feat2">Реальные выплаты в TMT</span></li>
+          <li><span class="bullet"></span><span data-i18n="bot.feat3">Бесплатный вход · без депозита</span></li>
+        </ul>
+      </div>
+      <div class="bot-right">
+        <div class="bot-cta">
+          <span class="bot-cta-label mono" data-i18n="bot.cta">запустить бота</span>
+          <span class="bot-cta-arrow" aria-hidden="true">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </div>
+        <div class="bot-mini mono" data-i18n="bot.mini">нажмите в любом месте карточки</div>
+      </div>
+    </a>
+  </section>
+
+  <!-- CONNECT -->
+  <section class="section reveal" id="connect">
+    <div class="section-head">
+      <span class="section-num mono">04</span>
+      <h3 class="section-title" data-i18n="section.connect">связаться <span class="grad">со мной</span></h3>
+    </div>
+
+    <div class="connect">
+      <a class="link-tile glass" href="https://t.me/tonystarky" target="_blank" rel="noopener">
+        <span class="link-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.6 15.5l-.4 4.1c.6 0 .8-.2 1.1-.5l2.6-2.5 5.4 4c1 .5 1.7.3 2-.9l3.6-16.9c.3-1.4-.5-2-1.5-1.6L1.5 9.1C.1 9.6.1 10.4 1.3 10.8l5.1 1.6 11.8-7.5c.6-.4 1.1-.2.7.2"/></svg>
+        </span>
+        <div>
+          <div class="link-title">TONYSTARKY</div>
+          <div class="link-sub mono" data-i18n="connect.stefanoSub">@tonysatrky · напиши мне</div>
+        </div>
+      </a>
+      <a class="link-tile glass" href="https://t.me/SERVERSTKMO" target="_blank" rel="noopener">
+        <span class="link-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.6 15.5l-.4 4.1c.6 0 .8-.2 1.1-.5l2.6-2.5 5.4 4c1 .5 1.7.3 2-.9l3.6-16.9c.3-1.4-.5-2-1.5-1.6L1.5 9.1C.1 9.6.1 10.4 1.3 10.8l5.1 1.6 11.8-7.5c.6-.4 1.1-.2.7.2"/></svg>
+        </span>
+        <div>
+          <div class="link-title">SERVERS TM</div>
+          <div class="link-sub mono">@SERVERSTKMO</div>
+        </div>
+      </a>
+      <a class="link-tile glass" href="https://t.me/SERVERSTKMO" target="_blank" rel="noopener">
+        <span class="link-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.6 15.5l-.4 4.1c.6 0 .8-.2 1.1-.5l2.6-2.5 5.4 4c1 .5 1.7.3 2-.9l3.6-16.9c.3-1.4-.5-2-1.5-1.6L1.5 9.1C.1 9.6.1 10.4 1.3 10.8l5.1 1.6 11.8-7.5c.6-.4 1.1-.2.7.2"/></svg>
+        </span>
+        <div>
+          <div class="link-title">Servers</div>
+          <div class="link-sub mono">@Serverstkmo</div>
+        </div>
+      </a>
+      <a class="link-tile glass" href="https://t.me/Serverstkmo" target="_blank" rel="noopener">
+        <span class="link-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 4.84L20 8l-4 3.9.95 5.5L12 14.77 7.05 17.4 8 11.9 4 8l5.61-1.16z"/></svg>
+        </span>
+        <div>
+          <div class="link-title">Servers</div>
+          <div class="link-sub mono">@Serverstkmo</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="foot-l mono" data-i18n="footer.left">
+      <span class="dot pulse"></span> tonystarky · @Tonystarky · 🇹🇲 с 2018
+    </div>
+    <div class="foot-r mono" data-i18n="footer.right">
+      &copy; <span id="year"></span> · все системы в сети
+    </div>
+  </footer>
+</main>
+
+<script src="script.js"></script>
 </body>
 </html>
